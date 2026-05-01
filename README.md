@@ -65,11 +65,12 @@ check mode.
 
 ## Current Routes
 
-- `/`: public PDF merge workspace in `src/pages/Root.tsx`
+- `/`: redirect to `/merge`
+- `/merge`: public PDF merge workspace
 
 ## Adding New Pages
 
-- Keep `/` as the special root file in `src/pages/Root.tsx`.
+- Keep `/` as the redirect/root entry in `src/pages/Root.tsx`.
 - Put authenticated routes under `src/pages/authenticated/...`.
 - Put unauthenticated routes under `src/pages/unauthenticated/...`.
 - Mirror nested route segments with kebab-case folders.
@@ -77,8 +78,8 @@ check mode.
 
 Examples:
 
-- `/dashboard` → `src/pages/authenticated/dashboard/Dashboard.tsx`
-- `/history` → `src/pages/authenticated/history/History.tsx`
+- `/merge` → `src/pages/unauthenticated/merge/Merge.tsx`
+- `/delete-pages` → `src/pages/unauthenticated/delete-pages/DeletePages.tsx`
 - `/workspace-settings` → `src/pages/unauthenticated/workspace-settings/WorkspaceSettings.tsx`
 
 ## Hooks, Types, and Modals

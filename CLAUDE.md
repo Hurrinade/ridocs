@@ -21,7 +21,8 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 
 ## Current Routes
 
-- `/` — Public PDF merge workspace
+- `/` —
+- `/merge` — Public PDF merge workspace
 
 ## Folder Structure
 
@@ -118,6 +119,7 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 Examples
 
 - `Root.tsx` is the page for `/`
+- `Merge.tsx` is in folder `merge` because route is `/merge`
 - `History.tsx` would be in folder `history` because route is `/history`
 - `WorkspaceSettings.tsx` would be in folder `workspace-settings` because route is `/workspace-settings`
 - `Account.tsx` would be in folder `account` because route is `/account`
@@ -183,3 +185,4 @@ Examples
 - for any new component you are adding from shadcn please do the official command to add component from shadcn instead of just making it by yourself
 - if a template placeholder file is kept on purpose, leave a useful example or a clear comment so future agents understand how to extend it
 - `src/context/ConvexClerkProvider.tsx` is the canonical Convex + Clerk provider wrapper and should be reused from `src/main.tsx`
+- Pages should remain focused on layout, structure, and page-specific concerns. Avoid placing general component logic in pages—if a component can encapsulate its own behavior, that logic should live within the component. Treat pages primarily as composition layers that assemble and organize components.
