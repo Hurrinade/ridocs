@@ -2,7 +2,7 @@
 
 ## Project overview
 
-This is react template for all future projects in this company
+This project is a browser-based PDF workspace focused first on merge and file ordering.
 
 ## Commands
 
@@ -21,9 +21,7 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 
 ## Current Routes
 
-- `/` — Root route
-- `/home` — Authenticated example route
-- `/public` — Unauthenticated example route
+- `/` — Public PDF merge workspace
 
 ## Folder Structure
 
@@ -41,6 +39,7 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 │   └── schema.ts                  # DB schema
 ├── public/                        (empty)
 ├── src/
+│   ├── components/merge/          # PDF merge workspace components
 │   ├── components/modals/         # Shared modal components and modal groups
 │   ├── components/ui/             # shadcn UI primitives (button, spinner)
 │   ├── config/                    # Typed env variable access
@@ -51,7 +50,7 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 │   ├── stores/                    # Shared or route-scoped Zustand stores
 │   ├── types/                     # Shared and route-scoped type declarations (type-only, re-exported via index.ts)
 │   ├── utils/                     # Shared or not reusable utils
-│   ├── App.tsx                    # Route definitions + auth guards
+│   ├── App.tsx                    # Route definitions
 │   ├── index.css                  # Global styles, Tailwind theme, CSS variables
 │   └── main.tsx                   # App bootstrap (Clerk, Convex, React Query, Router)
 ├── components.json                # shadcn config (radix-nova style)
@@ -82,6 +81,9 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 | State Management | Zustand                | 5       |
 | Data Fetching    | TanStack React Query   | 5       |
 | Date Handling    | dayjs                  | 1.11    |
+| PDF Merge        | pdf-lib                | 1.17    |
+| PDF Preview      | react-pdf              | 10      |
+| Drag and Drop    | @dnd-kit/react         | 0.4     |
 | Linting          | ESLint                 | 9       |
 | Formatting       | Prettier               | 3.8     |
 | Font             | Geist Variable         | —       |
@@ -116,20 +118,20 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 Examples
 
 - `Root.tsx` is the page for `/`
-- `Home.tsx` is in folder `home` because route is `/home`
-- `Public.tsx` is in folder `public` because route is `/public`
-- `HomeDetail.tsx` would be in folder `home/home-detail` because route is `/home/home-detail`
+- `History.tsx` would be in folder `history` because route is `/history`
+- `WorkspaceSettings.tsx` would be in folder `workspace-settings` because route is `/workspace-settings`
+- `Account.tsx` would be in folder `account` because route is `/account`
 
 ### Component, Hook, Util, Store, Type files
 
 - Shared components should live in folders such as `components/ui` or
   `components/modals`.
 - Route-scoped hooks, stores, utils, and types should use matching nested folders,
-  for example `hooks/home`, `stores/home`, `utils/home`, `types/home`.
+  for example `hooks/merge`, `stores/merge`, `utils/merge`, `types/merge`.
 - Shared hook, store, util, component, and type entry points should be exported from
   their root `index.ts` barrel file.
 - Prefer direct imports from concrete file paths for app code, for example
-  `@/hooks/home/use-home`.
+  `@/hooks/merge/use-pdf-merge-workspace`.
 - Root barrel files should be treated as intentional shared entry points, not as
   the default import style for every internal module.
 
@@ -145,7 +147,7 @@ Examples
 
 ### Page files
 
-- any page file should be named in PascalCase, example is `Home.tsx`
+- any page file should be named in PascalCase, example is `History.tsx`
 
 ### Hook, Store and Util files
 
@@ -153,8 +155,8 @@ Examples
 
 ### Type files
 
-- files should be named per page or feature, for example page Home should have its
-  route-specific types in `home.types.ts`
+- files should be named per page or feature, for example merge-specific types should
+  live in `merge.types.ts`
 
 ## Important notes
 

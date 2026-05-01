@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/react";
 import { envConfig } from "@/config/env";
 import ConvexClerkProvider from "@/context/ConvexClerkProvider";
 import { ModalProvider } from "@/context/ModalProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import App from "@/App.tsx";
 import "@/index.css";
 
@@ -33,9 +34,11 @@ async function startApp() {
         <ConvexClerkProvider>
           <QueryClientProvider client={queryClient}>
             <BrowserRouter>
-              <ModalProvider>
-                <App />
-              </ModalProvider>
+              <TooltipProvider>
+                <ModalProvider>
+                  <App />
+                </ModalProvider>
+              </TooltipProvider>
             </BrowserRouter>
           </QueryClientProvider>
         </ConvexClerkProvider>

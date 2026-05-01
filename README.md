@@ -1,7 +1,9 @@
-# React Vite Template
+# Rinament PDF Atelier
 
-This template is the starting point for future company projects built with
-React, Vite, Clerk, Convex, TanStack Query, Tailwind CSS 4, and shadcn UI.
+Rinament PDF Atelier is a browser-based PDF workspace built with React, Vite,
+and shadcn UI. The first milestone focuses on merging multiple PDFs into one
+downloadable file, showing visual previews, and reordering the merge queue with
+drag and drop.
 
 ## What is included
 
@@ -9,9 +11,11 @@ React, Vite, Clerk, Convex, TanStack Query, Tailwind CSS 4, and shadcn UI.
 - Clerk authentication
 - Convex client wiring
 - TanStack Query provider setup
-- Global modal host with a confirmation modal example
-- Warm light and dark semantic theme tokens in `src/index.css`
-- Route, hook, type, and component structure examples for future projects
+- Global modal host for reusable confirmation flows
+- `pdf-lib` for client-side PDF merge and export
+- `react-pdf` for PDF preview rendering
+- `@dnd-kit/react` for full-card queue reordering
+- Editorial workshop theme tokens in `src/index.css`
 
 ## Setup
 
@@ -61,9 +65,7 @@ check mode.
 
 ## Current Routes
 
-- `/`: shared root page example in `src/pages/Root.tsx`
-- `/home`: authenticated example page in `src/pages/authenticated/home/Home.tsx`
-- `/public`: unauthenticated example page in `src/pages/unauthenticated/public/Public.tsx`
+- `/`: public PDF merge workspace in `src/pages/Root.tsx`
 
 ## Adding New Pages
 
@@ -76,22 +78,22 @@ check mode.
 Examples:
 
 - `/dashboard` → `src/pages/authenticated/dashboard/Dashboard.tsx`
-- `/home/home-detail` → `src/pages/authenticated/home/home-detail/HomeDetail.tsx`
-- `/public` → `src/pages/unauthenticated/public/Public.tsx`
+- `/history` → `src/pages/authenticated/history/History.tsx`
+- `/workspace-settings` → `src/pages/unauthenticated/workspace-settings/WorkspaceSettings.tsx`
 
 ## Hooks, Types, and Modals
 
 - Route-scoped hooks should live in matching folders like
-  `src/hooks/home/use-home.ts`.
+  `src/hooks/merge/use-pdf-merge-workspace.ts`.
 - Route-scoped types should live in matching folders like
-  `src/types/home/home.types.ts`.
+  `src/types/merge/merge.types.ts`.
 - Shared modal components should live under `src/components/modals/...`.
 - Register global modal entries in `src/context/ModalProvider.tsx`.
 
 ## Import Policy
 
 - Prefer direct imports from the concrete module path, for example
-  `@/hooks/home/use-home` or `@/components/ui/button`.
+  `@/hooks/merge/use-pdf-merge-workspace` or `@/components/ui/button`.
 - Keep root barrel files only for intentionally shared public entry points.
 - When adding new files, update a root barrel only if that module is meant to be
   a shared template-level export.
