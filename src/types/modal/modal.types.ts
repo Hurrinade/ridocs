@@ -1,3 +1,5 @@
+import type { PdfMergeItem } from "@/types/merge/merge.types";
+
 export type ConfirmVariant = "danger" | "primary" | "secondary";
 
 export type ConfirmModalPayload = {
@@ -10,8 +12,14 @@ export type ConfirmModalPayload = {
   onCancel?: () => void | Promise<void>;
 };
 
+export type PdfDetailsModalPayload = {
+  item: PdfMergeItem;
+  onRemove?: (itemId: string) => void;
+};
+
 export type ModalPayloadMap = {
   confirm: ConfirmModalPayload;
+  pdfDetails: PdfDetailsModalPayload;
 };
 
 export type ModalKey = keyof ModalPayloadMap;

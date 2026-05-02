@@ -1,3 +1,2 @@
-// Root hook barrel for route-scoped and shared hooks.
-export * from "@/hooks/home/use-home";
+// Root hook barrel for shared hooks.
 export * from "@/hooks/modals/use-modal";

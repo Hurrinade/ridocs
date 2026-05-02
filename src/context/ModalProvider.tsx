@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import PdfDetailsModal from "@/components/modals/merge-modals/PdfDetailsModal";
 import ConfirmationModal from "@/components/modals/shared-modals/ConfirmationModal";
 import { useModal } from "@/hooks/modals/use-modal";
 import { ModalContext } from "@/context/modalContext";
@@ -22,6 +23,16 @@ const modalRegistry: ModalRegistry = {
     getInstanceKey: () => "confirm",
     render: ({ open, onOpenChange, payload }) => (
       <ConfirmationModal
+        open={open}
+        onOpenChange={onOpenChange}
+        payload={payload}
+      />
+    ),
+  },
+  pdfDetails: {
+    getInstanceKey: (payload) => payload.item.id,
+    render: ({ open, onOpenChange, payload }) => (
+      <PdfDetailsModal
         open={open}
         onOpenChange={onOpenChange}
         payload={payload}
