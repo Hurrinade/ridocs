@@ -20,7 +20,7 @@ async function startApp() {
         publishableKey={envConfig.clerkPublishableKey}
         appearance={{
           variables: {
-            colorPrimary: "var(--color-primary)",
+            colorPrimary: "var(--color-foreground)",
             colorBackground: "var(--color-background)",
             colorForeground: "var(--color-foreground)",
             colorPrimaryForeground: "var(--color-primary-foreground)",

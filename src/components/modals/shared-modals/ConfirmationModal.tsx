@@ -29,7 +29,7 @@ const confirmButtonVariants: Record<
 
 const alertIconVariants: Record<ConfirmVariant, string> = {
   danger: "border border-destructive/15 bg-destructive/10 text-destructive",
-  primary: "border border-primary/15 bg-primary/10 text-primary",
+  primary: "border border-foreground/15 bg-foreground/10 text-foreground",
   secondary: "border border-border bg-secondary text-secondary-foreground",
 };
 

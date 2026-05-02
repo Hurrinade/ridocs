@@ -77,7 +77,7 @@ export default function MergeCanvas() {
       <div
         className={cn(
           "relative flex min-h-svh flex-col transition-colors",
-          isDragActive ? "bg-primary/8" : "bg-transparent",
+          isDragActive ? "bg-foreground/8" : "bg-transparent",
         )}
         onClick={() => {
           if (items.length === 0) {
@@ -94,7 +94,7 @@ export default function MergeCanvas() {
       >
         {items.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-10 text-center">
-            <div className="flex size-16 items-center justify-center rounded-[1.4rem] border border-primary/15 bg-primary/10 text-primary">
+            <div className="flex size-16 items-center justify-center rounded-[1.4rem] border border-foreground/15 bg-foreground/10 text-foreground">
               <FileUp className="size-7" />
             </div>
             <div className="space-y-2">
@@ -145,7 +145,7 @@ export default function MergeCanvas() {
 
             <DragOverlay dropAnimation={null}>
               {activeItem ? (
-                <div className="w-44">
+                <div className="w-55">
                   <MergeQueueCardOverlay item={activeItem} />
                 </div>
               ) : null}

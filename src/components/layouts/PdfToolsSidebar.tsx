@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { pdfToolsNavItems } from "@/config/navigation/pdf-tools-nav";
 import {
   Sidebar,
@@ -14,15 +14,19 @@ import {
 
 export default function PdfToolsSidebar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <Sidebar className="border-r border-sidebar-border/80" collapsible="icon">
+    <Sidebar collapsible="icon">
       <SidebarHeader className="p-5">
         <div className="space-y-1">
-          <p className="font-heading text-[1.8rem] leading-none tracking-[-0.04em] text-sidebar-foreground">
+          <p
+            className="font-heading cursor-pointer text-[1.8rem] leading-none tracking-[-0.04em] text-background"
+            onClick={() => navigate("/")}
+          >
             Rinament
           </p>
-          <p className="text-sm text-sidebar-foreground/66">PDF tools</p>
+          <p className="text-sm text-background/66">PDF tools</p>
         </div>
       </SidebarHeader>
 

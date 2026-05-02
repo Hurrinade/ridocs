@@ -28,8 +28,8 @@ function MergeQueueCardBody({
     <div
       className={cn(
         "group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-border/75 bg-card/92 text-left  transition-colors h-[300px]",
-        "hover:border-primary/40 hover:bg-card",
-        isSelected && "border-primary/50 bg-primary/6",
+        "hover:border-foreground/40 hover:bg-card",
+        isSelected && "border-foreground/50 bg-foreground/6",
         isOverlay && "shadow-[0_22px_48px_rgb(28_20_13_/_0.16)]",
       )}
       onClick={handleOpen}
@@ -106,7 +106,7 @@ export default function MergeQueueCard({
         "rounded-[1.5rem]",
         isDragSource && "opacity-60",
         isDropTarget &&
-          "ring-2 ring-primary/30 ring-offset-2 ring-offset-background",
+          "ring-2 ring-foreground/30 ring-offset-2 ring-offset-background",
       )}
       ref={ref}
     >
