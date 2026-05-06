@@ -137,17 +137,13 @@ Examples
 
 ## File and Folder naming convention
 
-### Folder naming
-
-- if it is multi word folder it should be in kebab-case
-
-### Component files
+### Any tsx file
 
 - any component file should be named in PascalCase, example is `ConfirmationModal.tsx`
 
-### Page files
+### Folder naming
 
-- any page file should be named in PascalCase, example is `Home.tsx`
+- if it is multi word folder it should be in kebab-case
 
 ### Hook, Store and Util files
 

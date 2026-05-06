@@ -139,17 +139,13 @@ Examples
 
 ## File and Folder naming convention
 
-### Folder naming
-
-- if it is multi word folder it should be in kebab-case
-
-### Component files
+### Any tsx file
 
 - any component file should be named in PascalCase, example is `ConfirmationModal.tsx`
 
-### Page files
+### Folder naming
 
-- any page file should be named in PascalCase, example is `History.tsx`
+- if it is multi word folder it should be in kebab-case
 
 ### Hook, Store and Util files
 
@@ -157,8 +153,8 @@ Examples
 
 ### Type files
 
-- files should be named per page or feature, for example merge-specific types should
-  live in `merge.types.ts`
+- files should be named per page or feature, for example page Home should have its
+  route-specific types in `home.types.ts`
 
 ## Important notes
 
