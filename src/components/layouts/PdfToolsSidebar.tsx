@@ -1,3 +1,4 @@
+import { CircleHelp } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { pdfToolsNavItems } from "@/config/navigation/pdf-tools-nav";
 import {
@@ -7,10 +8,16 @@ import {
   SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function PdfToolsSidebar() {
   const { pathname } = useLocation();
@@ -41,6 +48,7 @@ export default function PdfToolsSidebar() {
                     className="h-11 rounded-none px-3 text-sm"
                     isActive={pathname === item.path}
                     size="lg"
+                    tooltip={item.description}
                   >
                     <Link
                       aria-disabled={item.disabled ? true : undefined}
@@ -50,6 +58,30 @@ export default function PdfToolsSidebar() {
                       <span>{item.label}</span>
                     </Link>
                   </SidebarMenuButton>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <SidebarMenuAction
+                        aria-label={`What ${item.label} does`}
+                        className="text-background/55  hover:text-background focus-visible:text-background mr-2"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          event.stopPropagation();
+                        }}
+                        type="button"
+                      >
+                        <CircleHelp className="size-3.5" />
+                      </SidebarMenuAction>
+                    </TooltipTrigger>
+
+                    <TooltipContent
+                      align="center"
+                      className="max-w-56 text-pretty"
+                      side="right"
+                    >
+                      {item.description}
+                    </TooltipContent>
+                  </Tooltip>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>

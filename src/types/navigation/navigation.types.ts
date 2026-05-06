@@ -5,5 +5,6 @@ export type PdfToolNavItem = {
   label: string;
   path: string;
   icon: LucideIcon;
+  description: string;
   disabled?: boolean;
 };
