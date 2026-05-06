@@ -8,6 +8,7 @@ import "@/utils/merge/pdf-preview";
 type PdfPagePreviewProps = {
   className?: string;
   file: File | string;
+  pageNumber?: number;
   pageWidth: number;
   title: string;
 };
@@ -15,6 +16,7 @@ type PdfPagePreviewProps = {
 export default function PdfPagePreview({
   className,
   file,
+  pageNumber = 1,
   pageWidth,
   title,
 }: PdfPagePreviewProps) {
@@ -55,7 +57,7 @@ export default function PdfPagePreview({
         <Page
           className="!m-0 flex h-full w-full items-center justify-center overflow-hidden rounded-[1rem] [&_.react-pdf__Page__canvas]:rounded-[1rem] [&_.react-pdf__Page__canvas]:w-full"
           loading={<Skeleton className="h-56 w-full rounded-[1rem]" />}
-          pageNumber={1}
+          pageNumber={pageNumber}
           renderAnnotationLayer={false}
           renderTextLayer={false}
           width={pageWidth}
