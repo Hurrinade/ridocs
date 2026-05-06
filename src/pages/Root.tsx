@@ -16,7 +16,7 @@ export default function Root() {
 
       <section
         aria-label="Available PDF tools"
-        className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2"
+        className="mt-8 flex gap-4 sm:mt-10 flex-wrap"
       >
         {pdfToolsNavItems.map((item) => {
           const cardContent = <ToolCardItem item={item} />;

@@ -1,6 +1,5 @@
 import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
-import { isSortable } from "@dnd-kit/react/sortable";
 import { FilePlus2 } from "lucide-react";
 import MergeQueueCard, {
   MergeQueueCardOverlay,
@@ -10,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useModal } from "@/hooks/modals/use-modal";
 import type { PdfMergeItem } from "@/types/merge/merge.types";
 import { usePdfMergeWorkspace } from "@/hooks/merge/use-pdf-merge-workspace";
-import Dropzone from "../common/Dropzone";
+import Dropzone from "@/components/common/Dropzone";
 
 export default function MergeCanvas() {
   const {
@@ -18,11 +17,10 @@ export default function MergeCanvas() {
     addFiles,
     canMerge,
     exportMergedDocument,
-    finishDrag,
+    handleDragEnd,
+    handleDragStart,
     items,
     removeItem,
-    reorderItems,
-    startDrag,
     status,
   } = usePdfMergeWorkspace();
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -97,28 +95,8 @@ export default function MergeCanvas() {
           <Dropzone title="Drop PDFs here" description="Or click to upload." />
         ) : (
           <DragDropProvider
-            onDragEnd={(event) => {
-              const { source } = event.operation;
-
-              finishDrag();
-
-              if (event.canceled || !isSortable(source)) {
-                return;
-              }
-
-              const { initialIndex, index } = source;
-
-              if (initialIndex !== index) {
-                reorderItems(initialIndex, index);
-              }
-            }}
-            onDragStart={(event) => {
-              startDrag(
-                event.operation.source?.id
-                  ? String(event.operation.source.id)
-                  : null,
-              );
-            }}
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
           >
             <div className="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 sm:p-6 lg:grid-cols-4 xl:grid-cols-5">
               {items.map((item) => (
@@ -160,7 +138,7 @@ export default function MergeCanvas() {
 
             {canMerge ? (
               <Button
-                className="absolute text-xl h-25 w-25 rounded-full right-4 bottom-4 z-20 bg-foreground sm:right-6 sm:bottom-6"
+                className="absolute text-xl h-25 w-25 rounded-full right-4 bottom-4 z-20 bg-foreground sm:right-6 sm:bottom-6 text-background"
                 onClick={(event) => {
                   event.stopPropagation();
                   exportMergedDocument();

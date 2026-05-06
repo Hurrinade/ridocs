@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useReorderableDrag } from "@/hooks/use-reorderable-drag";
 import type { MergeStatus, PdfMergeItem } from "@/types/merge/merge.types";
 import {
   createPdfMergeItem,
@@ -14,7 +15,21 @@ import {
 export function usePdfMergeWorkspace() {
   const [items, setItems] = useState<PdfMergeItem[]>([]);
   const [status, setStatus] = useState<MergeStatus>("idle");
-  const [activeDragId, setActiveDragId] = useState<string | null>(null);
+
+  const {
+    activeDragId,
+    endDrag,
+    handleDragEnd,
+    handleDragStart,
+    reorderItems,
+    startDrag,
+  } = useReorderableDrag({
+    onReorder(sourceIndex, targetIndex) {
+      setItems((currentItems) =>
+        movePdfMergeItems(currentItems, sourceIndex, targetIndex),
+      );
+    },
+  });
 
   async function addFiles(nextFiles: File[] | FileList) {
     const incomingFiles = Array.from(nextFiles);
@@ -103,20 +118,6 @@ export function usePdfMergeWorkspace() {
     setStatus("idle");
   }
 
-  function startDrag(itemId: string | null) {
-    setActiveDragId(itemId);
-  }
-
-  function finishDrag() {
-    setActiveDragId(null);
-  }
-
-  function reorderItems(sourceIndex: number, targetIndex: number) {
-    setItems((currentItems) =>
-      movePdfMergeItems(currentItems, sourceIndex, targetIndex),
-    );
-  }
-
   async function exportMergedDocument() {
     if (items.length < 2) {
       return;
@@ -141,7 +142,9 @@ export function usePdfMergeWorkspace() {
       items.length > 1 && status !== "loading-files" && status !== "merging",
     clearItems,
     exportMergedDocument,
-    finishDrag,
+    endDrag,
+    handleDragEnd,
+    handleDragStart,
     items,
     removeItem,
     reorderItems,
