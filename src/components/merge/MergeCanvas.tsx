@@ -1,7 +1,7 @@
 import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
-import { FilePlus2, FileUp } from "lucide-react";
+import { FilePlus2 } from "lucide-react";
 import MergeQueueCard, {
   MergeQueueCardOverlay,
 } from "@/components/merge/MergeQueueCard";
@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useModal } from "@/hooks/modals/use-modal";
 import type { PdfMergeItem } from "@/types/merge/merge.types";
 import { usePdfMergeWorkspace } from "@/hooks/merge/use-pdf-merge-workspace";
+import Dropzone from "../common/Dropzone";
 
 export default function MergeCanvas() {
   const {
@@ -93,19 +94,7 @@ export default function MergeCanvas() {
         onDrop={(event) => void handleDrop(event)}
       >
         {items.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-10 text-center">
-            <div className="flex size-16 items-center justify-center rounded-[1.4rem] border border-foreground/15 bg-foreground/10 text-foreground">
-              <FileUp className="size-7" />
-            </div>
-            <div className="space-y-2">
-              <p className="font-heading text-[1.9rem] tracking-[-0.03em] text-foreground">
-                Drop PDFs here
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Or click to upload.
-              </p>
-            </div>
-          </div>
+          <Dropzone title="Drop PDFs here" description="Or click to upload." />
         ) : (
           <DragDropProvider
             onDragEnd={(event) => {
