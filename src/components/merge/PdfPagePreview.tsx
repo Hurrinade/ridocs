@@ -52,7 +52,9 @@ export default function PdfPagePreview({
         file={file}
         className="flex h-full w-full items-center justify-center"
         loading={<Skeleton className="h-56 w-full rounded-[1rem]" />}
-        onLoadError={() => setHasError(true)}
+        onLoadError={() => {
+          setHasError(true);
+        }}
       >
         <Page
           className="!m-0 flex h-full w-full items-center justify-center overflow-hidden rounded-[1rem] [&_.react-pdf__Page__canvas]:rounded-[1rem] [&_.react-pdf__Page__canvas]:w-full"

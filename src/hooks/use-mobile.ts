@@ -19,7 +19,9 @@ export function useIsMobile() {
 
     mql.addEventListener("change", onChange);
 
-    return () => mql.removeEventListener("change", onChange);
+    return () => {
+      mql.removeEventListener("change", onChange);
+    };
   }, []);
 
   return isMobile;

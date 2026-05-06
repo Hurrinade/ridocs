@@ -88,8 +88,12 @@ export default function OrganizeCanvas() {
             openFilePicker();
           }
         }}
-        onDragEnter={() => setIsDragActive(true)}
-        onDragLeave={() => setIsDragActive(false)}
+        onDragEnter={() => {
+          setIsDragActive(true);
+        }}
+        onDragLeave={() => {
+          setIsDragActive(false);
+        }}
         onDragOver={(event) => {
           event.preventDefault();
           setIsDragActive(true);

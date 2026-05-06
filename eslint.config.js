@@ -6,7 +6,6 @@ import importX from "eslint-plugin-import-x";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -24,7 +23,6 @@ export default defineConfig([
     plugins: {
       react,
       "import-x": importX,
-      "simple-import-sort": simpleImportSort,
     },
     languageOptions: {
       ecmaVersion: "latest",
@@ -80,27 +78,24 @@ export default defineConfig([
       "react/self-closing-comp": "error",
 
       // Import rules
-      // "import-x/first": "error",
-      // "import-x/newline-after-import": "error",
-      // "import-x/no-cycle": "error",
-      // "import-x/no-duplicates": "error",
-      // "import-x/no-mutable-exports": "error",
-
-      // "simple-import-sort/imports": "error",
-      // "simple-import-sort/exports": "error",
+      "import-x/first": "error",
+      "import-x/newline-after-import": "error",
+      "import-x/no-cycle": "error",
+      "import-x/no-duplicates": "error",
+      "import-x/no-mutable-exports": "error",
 
       // // Typescript rules
-      // "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-      // "@typescript-eslint/consistent-type-imports": [
-      //   "error",
-      //   {
-      //     prefer: "type-imports",
-      //     fixStyle: "separate-type-imports",
-      //   },
-      // ],
-      // "@typescript-eslint/no-confusing-void-expression": "error",
-      // "@typescript-eslint/only-throw-error": "error",
-      // "@typescript-eslint/no-unnecessary-type-assertion": "error",
+      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          prefer: "type-imports",
+          fixStyle: "separate-type-imports",
+        },
+      ],
+      "@typescript-eslint/no-confusing-void-expression": "error",
+      "@typescript-eslint/only-throw-error": "error",
+      "@typescript-eslint/no-unnecessary-type-assertion": "error",
     },
   },
   {
@@ -113,7 +108,6 @@ export default defineConfig([
     ],
     plugins: {
       "import-x": importX,
-      "simple-import-sort": simpleImportSort,
     },
     languageOptions: {
       ecmaVersion: "latest",
@@ -131,8 +125,6 @@ export default defineConfig([
       "import-x/first": "error",
       "import-x/newline-after-import": "error",
       "import-x/no-duplicates": "error",
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
     },
   },
   {
@@ -146,7 +138,6 @@ export default defineConfig([
     extends: [js.configs.recommended, prettier],
     plugins: {
       "import-x": importX,
-      "simple-import-sort": simpleImportSort,
     },
     languageOptions: {
       ecmaVersion: "latest",
@@ -161,8 +152,6 @@ export default defineConfig([
       "import-x/first": "error",
       "import-x/newline-after-import": "error",
       "import-x/no-duplicates": "error",
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
     },
   },
 ]);
