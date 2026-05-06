@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import PdfToolsLayout from "@/components/layouts/PdfToolsLayout";
 import Root from "@/pages/Root";
 import Merge from "@/pages/unauthenticated/merge/Merge";
+import Organize from "@/pages/unauthenticated/organize/Organize";
 import { AuthLoading } from "convex/react";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<Root />} />
           <Route element={<PdfToolsLayout />}>
             <Route path="/merge" element={<Merge />} />
+            <Route path="/organize" element={<Organize />} />
           </Route>
           <Route path="*" element={<Navigate replace to="/merge" />} />
         </Routes>

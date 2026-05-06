@@ -1,4 +1,4 @@
-import { FileStack } from "lucide-react";
+import { FileStack, Rows3 } from "lucide-react";
 import type { PdfToolNavItem } from "@/types";
 
 export const pdfToolsNavItems: PdfToolNavItem[] = [
@@ -7,5 +7,11 @@ export const pdfToolsNavItems: PdfToolNavItem[] = [
     label: "Merge PDFs",
     path: "/merge",
     icon: FileStack,
+  },
+  {
+    key: "organize",
+    label: "Organize PDF",
+    path: "/organize",
+    icon: Rows3,
   },
 ];
