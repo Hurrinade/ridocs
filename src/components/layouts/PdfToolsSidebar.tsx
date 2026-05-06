@@ -31,7 +31,7 @@ export default function PdfToolsSidebar() {
             className="font-heading cursor-pointer text-[1.8rem] leading-none tracking-[-0.04em] text-background"
             onClick={() => navigate("/")}
           >
-            Rinament
+            RiDocs
           </p>
           <p className="text-sm text-background/66">PDF tools</p>
         </div>

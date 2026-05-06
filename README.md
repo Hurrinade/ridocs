@@ -1,6 +1,7 @@
-# Rinament PDF Atelier
+# RiDocs PDF Atelier
 
-Rinament PDF Atelier is a browser-based PDF workspace built with React, Vite,
+RiDocs PDF Atelier is a browser-based PDF workspace built with React, Vite,
+
 and shadcn UI. The first milestone focuses on merging multiple PDFs into one
 downloadable file, showing visual previews, and reordering the merge queue with
 drag and drop.

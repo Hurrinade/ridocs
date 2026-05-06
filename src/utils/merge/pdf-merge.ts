@@ -90,7 +90,7 @@ export async function mergePdfFiles(items: PdfMergeItem[]) {
 
 export function downloadMergedPdf(
   bytes: Uint8Array,
-  fileName = `rinament-merge-${dayjs().format("YYYY-MM-DD-HHmm")}.pdf`,
+  fileName = `ridocs-merge-${dayjs().format("YYYY-MM-DD-HHmm")}.pdf`,
 ) {
   const blob = new Blob([Uint8Array.from(bytes).buffer], {
     type: PDF_MIME_TYPE,
