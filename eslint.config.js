@@ -95,7 +95,6 @@ export default defineConfig([
       ],
       "@typescript-eslint/no-confusing-void-expression": "error",
       "@typescript-eslint/only-throw-error": "error",
-      "@typescript-eslint/no-unnecessary-type-assertion": "error",
     },
   },
   {
