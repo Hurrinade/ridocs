@@ -24,11 +24,11 @@ export default function PdfDetailsModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[calc(100vw-2rem)] max-w-4xl gap-0 overflow-hidden !p-0">
+      <DialogContent className="w-[calc(100vw-2rem)] max-w-4xl gap-0 overflow-hidden !p-0 rounded-sm">
         <div className="grid gap-0 md:grid-cols-[minmax(0,1fr)_18rem]">
           <div className="bg-card p-5 h-full">
             <PdfPagePreview
-              className="bg-[#f6eddc]"
+              className="bg-[#f6eddc] h-[700px] w-[550px]"
               file={item.previewUrl}
               pageWidth={550}
               title={item.fileName}

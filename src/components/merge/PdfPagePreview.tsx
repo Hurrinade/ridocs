@@ -18,7 +18,6 @@ export default function PdfPagePreview({
   file,
   pageNumber = 1,
   pageWidth,
-  title,
 }: PdfPagePreviewProps) {
   const [hasError, setHasError] = useState(false);
 
@@ -35,7 +34,6 @@ export default function PdfPagePreview({
           <p className="text-sm font-medium text-foreground">
             Preview unavailable
           </p>
-          <p className="text-xs leading-5 text-muted-foreground">{title}</p>
         </div>
       </div>
     );
@@ -44,7 +42,7 @@ export default function PdfPagePreview({
   return (
     <div
       className={cn(
-        "flex h-full w-full items-center justify-center overflow-hidden rounded-[1.5rem] bg-[#f8f1e5]",
+        "flex items-center justify-center overflow-hidden",
         className,
       )}
     >
@@ -57,7 +55,6 @@ export default function PdfPagePreview({
         }}
       >
         <Page
-          className="!m-0 flex h-full w-full items-center justify-center overflow-hidden rounded-[1rem] [&_.react-pdf__Page__canvas]:rounded-[1rem] [&_.react-pdf__Page__canvas]:w-full"
           loading={<Skeleton className="h-56 w-full rounded-[1rem]" />}
           pageNumber={pageNumber}
           renderAnnotationLayer={false}

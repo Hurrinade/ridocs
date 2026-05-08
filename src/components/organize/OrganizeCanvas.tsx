@@ -10,23 +10,7 @@ import { cn } from "@/lib/utils";
 import { usePdfOrganizerWorkspace } from "@/hooks/organize/use-pdf-organizer-workspace";
 import { formatFileSize } from "@/utils/merge/pdf-merge";
 import Dropzone from "@/components/common/Dropzone";
-
-function WorkspaceStat({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | number;
-}) {
-  return (
-    <div className="rounded-[1.35rem] border border-border/60 bg-background/70 px-4 py-3">
-      <p className="text-[0.68rem] uppercase tracking-[0.22em] text-muted-foreground">
-        {label}
-      </p>
-      <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
-    </div>
-  );
-}
+import WorkspaceStat from "@/components/common/WorkspaceStat";
 
 export default function OrganizeCanvas() {
   const {
@@ -124,7 +108,7 @@ export default function OrganizeCanvas() {
                       </p>
                     </div>
 
-                    <div className="grid gap-3 sm:grid-cols-3">
+                    <div className="flex gap-3">
                       <WorkspaceStat
                         label="Original pages"
                         value={document.pageCount}

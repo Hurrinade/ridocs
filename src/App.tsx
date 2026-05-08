@@ -3,6 +3,7 @@ import PdfToolsLayout from "@/components/layouts/PdfToolsLayout";
 import Root from "@/pages/Root";
 import Merge from "@/pages/unauthenticated/merge/Merge";
 import Organize from "@/pages/unauthenticated/organize/Organize";
+import PhotoToPdf from "@/pages/unauthenticated/photo-to-pdf/PhotoToPdf";
 import { AuthLoading } from "convex/react";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route element={<PdfToolsLayout />}>
             <Route path="/merge" element={<Merge />} />
             <Route path="/organize" element={<Organize />} />
+            <Route path="/photo-to-pdf" element={<PhotoToPdf />} />
           </Route>
           <Route path="*" element={<Navigate replace to="/merge" />} />
         </Routes>

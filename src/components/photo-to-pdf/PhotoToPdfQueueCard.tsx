@@ -3,48 +3,30 @@ import { Trash2 } from "lucide-react";
 import PdfPagePreview from "@/components/merge/PdfPagePreview";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { PdfMergeItem } from "@/types/merge/merge.types";
+import type { PhotoToPdfItem } from "@/types/photo-to-pdf/photo-to-pdf.types";
 
-type MergeQueueCardProps = {
-  item: PdfMergeItem;
-  isOverlay?: boolean;
-  isSelected?: boolean;
-  onOpen?: (item: PdfMergeItem) => void;
+type PhotoToPdfQueueCardProps = {
+  item: PhotoToPdfItem;
   onRemove?: (itemId: string) => void;
+  isOverlay?: boolean;
 };
 
-function MergeQueueCardBody({
+function PhotoToPdfQueueCardBody({
   item,
-  isOverlay = false,
-  isSelected = false,
-  onOpen,
   onRemove,
-}: MergeQueueCardProps) {
-  function handleOpen() {
-    onOpen?.(item);
-  }
-
+  isOverlay = false,
+}: PhotoToPdfQueueCardProps) {
   return (
     <div
       className={cn(
-        "group relative flex w-full h-full flex-col overflow-hidden rounded-[1.5rem] border border-border/75 bg-card/92 text-left  transition-colors",
+        "group relative flex h-full w-full flex-col overflow-hidden rounded-[1.5rem] border border-border/75 bg-card/92 text-left transition-colors",
         "hover:border-foreground/40 hover:bg-card",
-        isSelected && "border-foreground/50 bg-foreground/6",
         isOverlay && "shadow-[0_22px_48px_rgb(28_20_13_/_0.16)]",
       )}
-      onClick={handleOpen}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          handleOpen();
-        }
-      }}
-      role="button"
-      tabIndex={0}
     >
       {!isOverlay ? (
         <Button
-          className="absolute top-2 right-2 z-10 opacity-0 transition-opacity group-hover:opacity-100 cursor-pointer"
+          className="absolute top-2 right-2 z-10 cursor-pointer opacity-0 transition-opacity group-hover:opacity-100"
           onClick={(event) => {
             event.stopPropagation();
             onRemove?.(item.id);
@@ -69,35 +51,35 @@ function MergeQueueCardBody({
           className="h-[180px] w-[130px]"
         />
 
-        <p
-          className={cn(
-            "mt-1 line-clamp-2 text-xs text-foreground text-center",
-            isOverlay && "line-clamp-1",
-          )}
-        >
-          {item.fileName}
-        </p>
+        <div className="mt-1 flex w-full items-start justify-between">
+          <div className="min-w-0 text-center">
+            <p className="line-clamp-2 text-xs text-foreground text-center">
+              {item.fileName}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {item.width} x {item.height}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-export function MergeQueueCardOverlay({
+export function PhotoToPdfQueueCardOverlay({
   item,
-}: Pick<MergeQueueCardProps, "item">) {
-  return <MergeQueueCardBody isOverlay item={item} />;
+}: Pick<PhotoToPdfQueueCardProps, "item">) {
+  return <PhotoToPdfQueueCardBody isOverlay item={item} />;
 }
 
-export default function MergeQueueCard({
+export default function PhotoToPdfQueueCard({
   item,
-  isSelected = false,
-  onOpen,
   onRemove,
-}: MergeQueueCardProps) {
+}: PhotoToPdfQueueCardProps) {
   const { isDragSource, isDropTarget, ref } = useSortable({
     id: item.id,
     index: item.order - 1,
-    group: "pdf-merge-queue",
+    group: "photo-to-pdf-queue",
   });
 
   return (
@@ -110,12 +92,7 @@ export default function MergeQueueCard({
       )}
       ref={ref}
     >
-      <MergeQueueCardBody
-        isSelected={isSelected}
-        item={item}
-        onOpen={onOpen}
-        onRemove={onRemove}
-      />
+      <PhotoToPdfQueueCardBody item={item} onRemove={onRemove} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useSortable } from "@dnd-kit/react/sortable";
-import { GripVertical, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import PdfPagePreview from "@/components/merge/PdfPagePreview";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ function OrganizePageCardBody({
   return (
     <div
       className={cn(
-        "group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-border/75 bg-card/92 text-left  transition-colors h-[400px]",
+        "group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-border/75 bg-card/92 text-left  transition-colors h-full",
         "hover:border-foreground/40 hover:bg-card",
         isOverlay && "shadow-[0_24px_56px_rgb(36_27_21_/_0.14)]",
       )}
@@ -49,17 +49,16 @@ function OrganizePageCardBody({
 
       <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
         <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/80 px-3 py-1 text-xs font-medium text-muted-foreground">
-          <GripVertical className="size-3.5" />
-          Source page {pageLabel}
+          Starting page {pageLabel}
         </div>
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col px-3 pt-3 pb-4">
+      <div className="flex flex-col items-center justify-between px-4 py-2 h-full">
         <PdfPagePreview
-          className="min-h-0 flex-1"
           file={file}
           pageNumber={pageLabel}
-          pageWidth={180}
+          pageWidth={130}
+          className="h-[180px] w-[130px]"
           title={`Page ${pageLabel}`}
         />
       </div>
@@ -88,7 +87,7 @@ export default function OrganizePageCard({
   return (
     <div
       className={cn(
-        "h-full rounded-[1.6rem]",
+        "h-full rounded-[1.6rem] w-[200px] h-[250px]",
         isDragSource && "opacity-60",
         isDropTarget &&
           "ring-2 ring-foreground/30 ring-offset-2 ring-offset-background",

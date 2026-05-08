@@ -2,7 +2,7 @@
 
 ## Project overview
 
-This project is a browser-based PDF workspace focused first on merge and file ordering.
+This project is a browser-based PDF workspace focused first on merge, file ordering, and simple photo-to-PDF conversion.
 
 ## Commands
 
@@ -23,46 +23,8 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 
 - `/` —
 - `/merge` — Public PDF merge workspace
-
-## Folder Structure
-
-```
-├── convex/                        # Convex backend
-│   ├── _generated/                # Auto-generated (do not edit)
-│   ├── actions/                   # Convex actions
-│   ├── internal/                  # Internal convex functions
-│   ├── mutations/                 # Convex mutations
-│   ├── queries/                   # Convex queries
-│   ├── shared/                    # Shared functions and constants between convex files
-│   ├── auth.config.ts             # Clerk ↔ Convex auth config
-│   ├── crons.ts                   # Cron jobs
-│   ├── http.ts                    # API layer
-│   └── schema.ts                  # DB schema
-├── public/                        (empty)
-├── src/
-│   ├── components/merge/          # PDF merge workspace components
-│   ├── components/modals/         # Shared modal components and modal groups
-│   ├── components/ui/             # shadcn UI primitives (button, spinner)
-│   ├── config/                    # Typed env variable access
-│   ├── context/                   # Convex + Clerk provider wrapper
-│   ├── hooks/                     # React hooks
-│   ├── lib/                       # Helpers
-│   ├── pages/                     # Root.tsx plus authenticated/ and unauthenticated/ route pages
-│   ├── stores/                    # Shared or route-scoped Zustand stores
-│   ├── types/                     # Shared and route-scoped type declarations (type-only, re-exported via index.ts)
-│   ├── utils/                     # Shared or not reusable utils
-│   ├── App.tsx                    # Route definitions
-│   ├── index.css                  # Global styles, Tailwind theme, CSS variables
-│   └── main.tsx                   # App bootstrap (Clerk, Convex, React Query, Router)
-├── components.json                # shadcn config (radix-nova style)
-├── eslint.config.js               # ESLint 9 flat config + Prettier
-├── index.html
-├── package.json
-├── tsconfig.json                  # Path aliases (@/ → src/)
-├── tsconfig.app.json
-├── tsconfig.node.json
-└── vite.config.ts                 # Vite + React + Tailwind plugin + @ alias
-```
+- `/organize` — Public PDF organize workspace
+- `/photo-to-pdf` — Public JPG-to-PDF workspace
 
 ## Important Patterns For Agents
 
@@ -87,16 +49,6 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 | Drag and Drop    | @dnd-kit/react         | 0.4     |
 | Linting          | ESLint                 | 9       |
 | Formatting       | Prettier               | 3.8     |
-| Font             | Geist Variable         | —       |
-
-## Tech expectations
-
-- Use the latest stable versions of:
-  - React
-  - Tailwind CSS
-  - Clerk for authentication
-  - Convex as database
-- Use **shadcn** components as the default UI component approach.
 
 ## Component architecture pattern
 
@@ -122,22 +74,26 @@ Examples
 - `Merge.tsx` is in folder `merge` because route is `/merge`
 - `History.tsx` would be in folder `history` because route is `/history`
 - `WorkspaceSettings.tsx` would be in folder `workspace-settings` because route is `/workspace-settings`
-- `Account.tsx` would be in folder `account` because route is `/account`
 
 ### Component, Hook, Util, Store, Type files
 
 - Shared components should live in folders such as `components/ui` or
-  `components/modals`.
+  `components/modals` or `components/common`.
 - Route-scoped hooks, stores, utils, and types should use matching nested folders,
-  for example `hooks/merge`, `stores/merge`, `utils/merge`, `types/merge`.
+  for example `hooks/home`, `stores/home`, `utils/home`, `types/home`.
 - Shared hook, store, util, component, and type entry points should be exported from
   their root `index.ts` barrel file.
-- Prefer direct imports from concrete file paths for app code, for example
-  `@/hooks/merge/use-pdf-merge-workspace`.
-- Root barrel files should be treated as intentional shared entry points, not as
-  the default import style for every internal module.
+  - all imports in that way can just go from folder they are in like `@/types` or `@/hooks`, etc.
+- `src/lib/utils.ts` is an allowed shared helper exception for the common `cn` utility and should not be treated as a folder-structure violation.
+
+### Context/Providers
+
+- all provider/context files should go in folder `src/context` under their dedicated folder
+  - for example modal provider has dedicated `modal` folder which has context and provider
 
 ## File and Folder naming convention
+
+- exception to this naming conventions are shadcn components inside `src/components/ui/` folder
 
 ### Any tsx file
 
@@ -145,11 +101,14 @@ Examples
 
 ### Folder naming
 
-- if it is multi word folder it should be in kebab-case
+- if it is multi word folder it should be in kebab-case, otherwise just lowercase
 
 ### Hook, Store and Util files
 
-- They should be named in kebab-case, for example `use-modal.ts` or `home-store.ts`
+- They should be named in kebab-case
+  - all hooks should start with word `use`, so for example `use-modal.ts`
+  - all store files should end with word `store`, so for example `home-store.ts`
+  - all utils files should end with word `utils`, so for exampl `home-utils.ts`
 
 ### Type files
 
@@ -159,26 +118,27 @@ Examples
 ## Important notes
 
 - Do not run dev server.
+- Always run `bun run check` when you finish adding code
 - Always use TypeScript.
-- Put new shared types in `src/types`.
+- Put all types always in `src/types`.
 - `src/types` is type-only: keep only type declarations there (no functions, constants, runtime logic).
 - No inline styles and no animations.
 - always delete files you don't use anymore
 - always focus any new components and pages around `src/index.css` global application styling and pallete
-- use english always!
+  - don't add new classes to index.css for tailwind rather just use inline tailwind on elements
+- use english always
+- don't overcomplicate things
 - don't use useEffect unless it is absolutely necessary
   - use tanstack query for fetching
   - fully focus on interaction based actions so you don't have to use useEffect
 - Keep components focused and compose pages from smaller pieces.
+  - don't make huge files, split big components into smaller ones when it can be done but don't oversplit it
 - Use `dayjs` for any date parsing and date formatting.
-- don't overcomplicate things
 - always keep to date AGENTS.md, CLAUDE.md and project.mdc files
 - before creating a new util function or reusable component, search existing code first (use `rg`) and reuse/extend existing implementations when possible
 - only create a new utility/component when no suitable existing one exists or extending one would cause coupling or regression
 - don't assume secondary matching logic, it should always be only one match so like example is that item will have "Key" and never "Id" so when matching don't assume it might have Id just match Key and fallback is if Key does not exist show empty state "-"
-- don't make huge files, split big components into smaller ones when it can be done but don't oversplit it
 - always import project files with alias import `@/` never with relative or absolute paths
 - for any new component you are adding from shadcn please do the official command to add component from shadcn instead of just making it by yourself
-- if a template placeholder file is kept on purpose, leave a useful example or a clear comment so future agents understand how to extend it
 - `src/context/ConvexClerkProvider.tsx` is the canonical Convex + Clerk provider wrapper and should be reused from `src/main.tsx`
 - Pages should remain focused on layout, structure, and page-specific concerns. Avoid placing general component logic in pages—if a component can encapsulate its own behavior, that logic should live within the component. Treat pages primarily as composition layers that assemble and organize components.
