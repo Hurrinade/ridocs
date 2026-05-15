@@ -1,4 +1,4 @@
-import { FileImage, FileStack, Rows3 } from "lucide-react";
+import { Archive, FileImage, FileStack, Rows3 } from "lucide-react";
 import type { PdfToolNavItem } from "@/types";
 
 export const pdfToolsNavItems: PdfToolNavItem[] = [
@@ -16,7 +16,7 @@ export const pdfToolsNavItems: PdfToolNavItem[] = [
     path: "/organize",
     icon: Rows3,
     description:
-      "Reorder pages in a single PDF and remove pages you do not want before saving.",
+      "Reorder, rotate, and remove pages in a single PDF before saving.",
   },
   {
     key: "photo-to-pdf",
@@ -25,5 +25,13 @@ export const pdfToolsNavItems: PdfToolNavItem[] = [
     icon: FileImage,
     description:
       "Convert JPG photos into PDF pages, adjust page size, and export one combined PDF or separate files.",
+  },
+  {
+    key: "compress",
+    label: "Compress PDF",
+    path: "/compress",
+    icon: Archive,
+    description: "Reduce PDF file size for easier sharing.",
+    disabled: true,
   },
 ];

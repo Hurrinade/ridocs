@@ -10,6 +10,7 @@ type PdfPagePreviewProps = {
   file: File | string;
   pageNumber?: number;
   pageWidth: number;
+  rotation?: number;
   title: string;
 };
 
@@ -18,6 +19,7 @@ export default function PdfPagePreview({
   file,
   pageNumber = 1,
   pageWidth,
+  rotation = 0,
 }: PdfPagePreviewProps) {
   const [hasError, setHasError] = useState(false);
 
@@ -59,6 +61,7 @@ export default function PdfPagePreview({
           pageNumber={pageNumber}
           renderAnnotationLayer={false}
           renderTextLayer={false}
+          rotate={rotation}
           width={pageWidth}
         />
       </Document>

@@ -1,17 +1,29 @@
 import dayjs from "dayjs";
-import { PDFDocument } from "pdf-lib";
+import { degrees, PDFDocument } from "pdf-lib";
 import { downloadMergedPdf, isPdfFile } from "@/utils/merge/pdf-merge";
 import type {
   PdfOrganizeDocument,
   PdfOrganizePageItem,
+  PdfOrganizePageRotation,
 } from "@/types/organize/organize.types";
+
+const PAGE_ROTATIONS: PdfOrganizePageRotation[] = [0, 90, 180, 270];
 
 function buildPdfOrganizePageItems(pageCount: number): PdfOrganizePageItem[] {
   return Array.from({ length: pageCount }, (_, index) => ({
     id: crypto.randomUUID(),
     order: index + 1,
+    rotation: 0,
     sourcePageIndex: index,
   }));
+}
+
+function normalizePageRotation(rotation: number): PdfOrganizePageRotation {
+  const normalizedRotation = ((rotation % 360) + 360) % 360;
+
+  return PAGE_ROTATIONS.includes(normalizedRotation as PdfOrganizePageRotation)
+    ? (normalizedRotation as PdfOrganizePageRotation)
+    : 0;
 }
 
 export function normalizePdfOrganizePages(items: PdfOrganizePageItem[]) {
@@ -74,6 +86,20 @@ export function removePdfOrganizePage(
   return normalizePdfOrganizePages(items.filter((item) => item.id !== itemId));
 }
 
+export function rotatePdfOrganizePage(
+  items: PdfOrganizePageItem[],
+  itemId: string,
+) {
+  return items.map((item) =>
+    item.id === itemId
+      ? {
+          ...item,
+          rotation: normalizePageRotation(item.rotation + 90),
+        }
+      : item,
+  );
+}
+
 export async function saveOrganizedPdf(
   document: PdfOrganizeDocument,
   pages: PdfOrganizePageItem[],
@@ -86,6 +112,14 @@ export async function saveOrganizedPdf(
     const [copiedPage] = await nextDocument.copyPages(sourceDocument, [
       pageItem.sourcePageIndex,
     ]);
+
+    copiedPage.setRotation(
+      degrees(
+        normalizePageRotation(
+          copiedPage.getRotation().angle + pageItem.rotation,
+        ),
+      ),
+    );
     nextDocument.addPage(copiedPage);
   }
 

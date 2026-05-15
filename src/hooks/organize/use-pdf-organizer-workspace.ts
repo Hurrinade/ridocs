@@ -12,6 +12,7 @@ import {
   movePdfOrganizePages,
   removePdfOrganizePage,
   revokePdfOrganizeDocument,
+  rotatePdfOrganizePage,
   saveOrganizedPdf,
 } from "@/utils/organize/pdf-organize";
 
@@ -93,6 +94,10 @@ export function usePdfOrganizerWorkspace() {
     setPages((currentPages) => removePdfOrganizePage(currentPages, itemId));
   }
 
+  function rotatePage(itemId: string) {
+    setPages((currentPages) => rotatePdfOrganizePage(currentPages, itemId));
+  }
+
   async function saveDocument() {
     if (!document || pages.length === 0) {
       return;
@@ -129,6 +134,7 @@ export function usePdfOrganizerWorkspace() {
     pages,
     removePage,
     reorderPages: reorderItems,
+    rotatePage,
     saveDocument,
     startDrag,
     status,

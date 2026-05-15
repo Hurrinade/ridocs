@@ -2,7 +2,7 @@
 
 ## Project overview
 
-This project is a browser-based PDF workspace focused first on merge, file ordering, and simple photo-to-PDF conversion.
+This project is a browser-based PDF workspace focused first on merge, page ordering/rotation, and simple photo-to-PDF conversion.
 
 ## Commands
 

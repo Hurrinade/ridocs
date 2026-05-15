@@ -1,5 +1,5 @@
 import { useSortable } from "@dnd-kit/react/sortable";
-import { Trash2 } from "lucide-react";
+import { RotateCw, Trash2 } from "lucide-react";
 import PdfPagePreview from "@/components/merge/PdfPagePreview";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,7 @@ type OrganizePageCardProps = {
   item: PdfOrganizePageItem;
   isOverlay?: boolean;
   onRemove?: (itemId: string) => void;
+  onRotate?: (itemId: string) => void;
 };
 
 function OrganizePageCardBody({
@@ -17,6 +18,7 @@ function OrganizePageCardBody({
   item,
   isOverlay = false,
   onRemove,
+  onRotate,
 }: OrganizePageCardProps) {
   const pageLabel = item.sourcePageIndex + 1;
 
@@ -29,22 +31,38 @@ function OrganizePageCardBody({
       )}
     >
       {!isOverlay ? (
-        <Button
-          className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100"
-          onClick={(event) => {
-            event.stopPropagation();
-            onRemove?.(item.id);
-          }}
-          onPointerDown={(event) => {
-            event.stopPropagation();
-          }}
-          size="icon-xs"
-          type="button"
-          variant="ghost"
-        >
-          <Trash2 className="size-3.5" />
-          <span className="sr-only">Delete page {pageLabel}</span>
-        </Button>
+        <div className="absolute top-3 right-3 z-10 flex gap-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100">
+          <Button
+            onClick={(event) => {
+              event.stopPropagation();
+              onRotate?.(item.id);
+            }}
+            onPointerDown={(event) => {
+              event.stopPropagation();
+            }}
+            size="icon-xs"
+            type="button"
+            variant="ghost"
+          >
+            <RotateCw className="size-3.5" />
+            <span className="sr-only">Rotate page {pageLabel}</span>
+          </Button>
+          <Button
+            onClick={(event) => {
+              event.stopPropagation();
+              onRemove?.(item.id);
+            }}
+            onPointerDown={(event) => {
+              event.stopPropagation();
+            }}
+            size="icon-xs"
+            type="button"
+            variant="ghost"
+          >
+            <Trash2 className="size-3.5" />
+            <span className="sr-only">Delete page {pageLabel}</span>
+          </Button>
+        </div>
       ) : null}
 
       <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
@@ -58,6 +76,7 @@ function OrganizePageCardBody({
           file={file}
           pageNumber={pageLabel}
           pageWidth={130}
+          rotation={item.rotation}
           className="h-[180px] w-[130px]"
           title={`Page ${pageLabel}`}
         />
@@ -77,6 +96,7 @@ export default function OrganizePageCard({
   file,
   item,
   onRemove,
+  onRotate,
 }: OrganizePageCardProps) {
   const { isDragSource, isDropTarget, ref } = useSortable({
     id: item.id,
@@ -94,7 +114,12 @@ export default function OrganizePageCard({
       )}
       ref={ref}
     >
-      <OrganizePageCardBody file={file} item={item} onRemove={onRemove} />
+      <OrganizePageCardBody
+        file={file}
+        item={item}
+        onRemove={onRemove}
+        onRotate={onRotate}
+      />
     </div>
   );
 }

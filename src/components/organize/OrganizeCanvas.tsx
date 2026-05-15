@@ -24,6 +24,7 @@ export default function OrganizeCanvas() {
     message,
     pages,
     removePage,
+    rotatePage,
     saveDocument,
     status,
   } = usePdfOrganizerWorkspace();
@@ -174,6 +175,7 @@ export default function OrganizeCanvas() {
                       item={item}
                       key={item.id}
                       onRemove={removePage}
+                      onRotate={rotatePage}
                     />
                   ))}
                 </div>

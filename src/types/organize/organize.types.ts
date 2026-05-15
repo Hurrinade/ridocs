@@ -5,6 +5,8 @@ export type OrganizeStatus =
   | "saving"
   | "error";
 
+export type PdfOrganizePageRotation = 0 | 90 | 180 | 270;
+
 export type PdfOrganizeDocument = {
   file: File;
   fileName: string;
@@ -16,5 +18,6 @@ export type PdfOrganizeDocument = {
 export type PdfOrganizePageItem = {
   id: string;
   order: number;
+  rotation: PdfOrganizePageRotation;
   sourcePageIndex: number;
 };
