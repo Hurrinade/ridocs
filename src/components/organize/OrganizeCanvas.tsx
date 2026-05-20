@@ -93,7 +93,7 @@ export default function OrganizeCanvas() {
             onDragStart={handleDragStart}
           >
             <div className="mx-auto flex min-h-svh w-full max-w-7xl flex-col px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-              <div className="rounded-[2rem] border border-border/70 bg-card/92 p-5 shadow-[0_30px_70px_rgb(36_27_21_/_0.08)] sm:p-6">
+              <div className="rounded-[2rem] border border-border/70 bg-card/92 p-5 shadow-[0_30px_70px_rgb(36_27_21/0.08)] sm:p-6">
                 <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
                   <div className="space-y-4">
                     <div className="space-y-2">
@@ -196,7 +196,7 @@ export default function OrganizeCanvas() {
 
             <DragOverlay dropAnimation={null}>
               {activeItem ? (
-                <div className="w-full max-w-[19rem]">
+                <div className="w-full max-w-76">
                   <OrganizePageCardOverlay
                     file={document.previewUrl}
                     item={activeItem}

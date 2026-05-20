@@ -1,6 +1,6 @@
 import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
-import { FilePlus2 } from "lucide-react";
+import { FilePlus2, Trash2 } from "lucide-react";
 import MergeQueueCard, {
   MergeQueueCardOverlay,
 } from "@/components/merge/MergeQueueCard";
@@ -16,6 +16,7 @@ export default function MergeCanvas() {
     activeDragId,
     addFiles,
     canMerge,
+    clearItems,
     exportMergedDocument,
     handleDragEnd,
     handleDragStart,
@@ -102,7 +103,7 @@ export default function MergeCanvas() {
             onDragEnd={handleDragEnd}
             onDragStart={handleDragStart}
           >
-            <div className="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 sm:p-6 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="flex flex-wrap items-start gap-4 p-4">
               {items.map((item) => (
                 <MergeQueueCard
                   isSelected={false}
@@ -126,19 +127,36 @@ export default function MergeCanvas() {
 
         {items.length > 0 ? (
           <>
-            <Button
-              className="absolute top-4 right-4 z-20 rounded-full shadow-[0_16px_32px_rgb(33_24_18_/_0.12)] sm:top-6 sm:right-6"
-              onClick={(event) => {
-                event.stopPropagation();
-                openFilePicker();
-              }}
-              size="icon"
-              type="button"
-              variant="outline"
-            >
-              <FilePlus2 className="size-4" />
-              <span className="sr-only">Add PDFs</span>
-            </Button>
+            <div className="absolute top-4 right-4 z-20 flex items-center gap-2 sm:top-6 sm:right-6">
+              <Button
+                className="rounded-full shadow-[0_16px_32px_rgb(33_24_18/0.12)]"
+                disabled={status === "loading-files" || status === "merging"}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  clearItems();
+                }}
+                size="icon"
+                type="button"
+                variant="outline"
+              >
+                <Trash2 className="size-4" />
+                <span className="sr-only">Clear PDFs</span>
+              </Button>
+
+              <Button
+                className="rounded-full shadow-[0_16px_32px_rgb(33_24_18/0.12)]"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  openFilePicker();
+                }}
+                size="icon"
+                type="button"
+                variant="outline"
+              >
+                <FilePlus2 className="size-4" />
+                <span className="sr-only">Add PDFs</span>
+              </Button>
+            </div>
 
             {canMerge ? (
               <Button
