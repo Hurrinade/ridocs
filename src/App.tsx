@@ -4,7 +4,6 @@ import Root from "@/pages/Root";
 import Merge from "@/pages/unauthenticated/merge/Merge";
 import Organize from "@/pages/unauthenticated/organize/Organize";
 import PhotoToPdf from "@/pages/unauthenticated/photo-to-pdf/PhotoToPdf";
-import { AuthLoading } from "convex/react";
 
 function App() {
   return (
@@ -20,9 +19,6 @@ function App() {
           <Route path="*" element={<Navigate replace to="/merge" />} />
         </Routes>
       </main>
-      <AuthLoading>
-        <p className="sr-only">Loading authentication</p>
-      </AuthLoading>
     </div>
   );
 }

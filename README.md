@@ -9,8 +9,6 @@ drag and drop.
 ## What is included
 
 - React 19 + Vite 8 + TypeScript 6
-- Clerk authentication
-- Convex client wiring
 - TanStack Query provider setup
 - Global modal host for reusable confirmation flows
 - `pdf-lib` for client-side PDF merge and export
@@ -26,25 +24,13 @@ drag and drop.
 bun install
 ```
 
-2. Create your local environment file from `.env.example`.
-
-Required frontend env keys:
-
-- `VITE_CLERK_PUBLISHABLE_KEY`: Clerk publishable key from the Clerk dashboard
-- `VITE_CONVEX_URL`: Convex client URL for the current deployment
-- `VITE_CONVEX_SITE_URL`: Public site URL used for auth/callback configuration
-
-Optional local workflow key:
-
-- `CONVEX_DEPLOYMENT`: helpful for Convex local tooling such as `npx convex dev`
-
-3. Verify the project:
+2. Verify the project:
 
 ```bash
 bun run check
 ```
 
-4. Build the production bundle when needed:
+3. Build the production bundle when needed:
 
 ```bash
 bun run build
@@ -99,9 +85,3 @@ Examples:
 - Keep root barrel files only for intentionally shared public entry points.
 - When adding new files, update a root barrel only if that module is meant to be
   a shared template-level export.
-
-## Provider Pattern
-
-- `src/context/ConvexClerkProvider.tsx` is the canonical Convex + Clerk wrapper.
-- `src/main.tsx` should compose app-level providers using that wrapper instead of
-  duplicating the Convex provider setup inline.

@@ -51,7 +51,6 @@ next-env.d.ts
 output
 .open-next
 .wrangler
-.clerk
 .turbo
 dist
 .env*.local

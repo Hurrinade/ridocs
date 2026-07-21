@@ -32,25 +32,23 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 
 ## Tech Stack (current versions)
 
-| Category         | Technology             | Version |
-| ---------------- | ---------------------- | ------- |
-| Framework        | React                  | 19      |
-| Language         | TypeScript             | ~6.0    |
-| Bundler          | Vite                   | 8       |
-| Routing          | React Router           | 7       |
-| Styling          | Tailwind CSS           | 4       |
-| UI Components    | shadcn (radix-nova)    | 4       |
-| Icons            | Lucide React           | 1.8     |
-| Auth             | Clerk (`@clerk/react`) | 6       |
-| Database         | Convex                 | 1.36    |
-| State Management | Zustand                | 5       |
-| Data Fetching    | TanStack React Query   | 5       |
-| Date Handling    | dayjs                  | 1.11    |
-| PDF Merge        | pdf-lib                | 1.17    |
-| PDF Preview      | react-pdf              | 10      |
-| Drag and Drop    | @dnd-kit/react         | 0.4     |
-| Linting          | ESLint                 | 9       |
-| Formatting       | Prettier               | 3.8     |
+| Category         | Technology           | Version |
+| ---------------- | -------------------- | ------- |
+| Framework        | React                | 19      |
+| Language         | TypeScript           | ~6.0    |
+| Bundler          | Vite                 | 8       |
+| Routing          | React Router         | 7       |
+| Styling          | Tailwind CSS         | 4       |
+| UI Components    | shadcn (radix-nova)  | 4       |
+| Icons            | Lucide React         | 1.8     |
+| State Management | Zustand              | 5       |
+| Data Fetching    | TanStack React Query | 5       |
+| Date Handling    | dayjs                | 1.11    |
+| PDF Merge        | pdf-lib              | 1.17    |
+| PDF Preview      | react-pdf            | 10      |
+| Drag and Drop    | @dnd-kit/react       | 0.4     |
+| Linting          | ESLint               | 9       |
+| Formatting       | Prettier             | 3.8     |
 
 ## Component architecture pattern
 
@@ -142,5 +140,4 @@ Examples
 - don't assume secondary matching logic, it should always be only one match so like example is that item will have "Key" and never "Id" so when matching don't assume it might have Id just match Key and fallback is if Key does not exist show empty state "-"
 - always import project files with alias import `@/` never with relative or absolute paths
 - for any new component you are adding from shadcn please do the official command to add component from shadcn instead of just making it by yourself
-- `src/context/ConvexClerkProvider.tsx` is the canonical Convex + Clerk provider wrapper and should be reused from `src/main.tsx`
 - Pages should remain focused on layout, structure, and page-specific concerns. Avoid placing general component logic in pages—if a component can encapsulate its own behavior, that logic should live within the component. Treat pages primarily as composition layers that assemble and organize components.
