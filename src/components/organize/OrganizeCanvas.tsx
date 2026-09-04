@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { usePdfOrganizerWorkspace } from "@/hooks/organize/use-pdf-organizer-workspace";
 import { formatFileSize } from "@/utils/merge/pdf-merge";
 import Dropzone from "@/components/common/Dropzone";
+import PdfPageSizeSelect from "@/components/common/PdfPageSizeSelect";
 import WorkspaceStat from "@/components/common/WorkspaceStat";
 
 export default function OrganizeCanvas() {
@@ -22,11 +23,13 @@ export default function OrganizeCanvas() {
     handleDragStart,
     loadFile,
     message,
+    pageSize,
     pages,
     removePage,
     rotatePage,
     saveDocument,
     status,
+    updatePageSize,
   } = usePdfOrganizerWorkspace();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
@@ -104,12 +107,26 @@ export default function OrganizeCanvas() {
                         {document.fileName}
                       </h1>
                       <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-                        Drag cards to change the reading order, or delete pages
-                        you do not want in the final export.
+                        Drag cards to change the reading order, delete pages you
+                        do not want, and give every page the same size in the
+                        final export.
                       </p>
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex flex-wrap items-stretch gap-3">
+                      <div className="w-full max-w-52 rounded-[1.35rem] border border-border/60 bg-background/75 p-4">
+                        <p className="text-[0.68rem] uppercase tracking-[0.22em] text-muted-foreground">
+                          Page size
+                        </p>
+                        <PdfPageSizeSelect
+                          className="mt-3"
+                          disabled={
+                            status === "loading-file" || status === "saving"
+                          }
+                          onChange={updatePageSize}
+                          value={pageSize}
+                        />
+                      </div>
                       <WorkspaceStat
                         label="Original pages"
                         value={document.pageCount}

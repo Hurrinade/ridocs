@@ -1,3 +1,5 @@
+import type { PdfPageQuarterTurn } from "@/types/common/common.type";
+
 export type OrganizeStatus =
   | "idle"
   | "loading-file"
@@ -5,7 +7,7 @@ export type OrganizeStatus =
   | "saving"
   | "error";
 
-export type PdfOrganizePageRotation = 0 | 90 | 180 | 270;
+export type PdfOrganizePageRotation = PdfPageQuarterTurn;
 
 export type PdfOrganizeDocument = {
   file: File;

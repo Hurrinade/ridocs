@@ -5,31 +5,14 @@ import type {
   PhotoToPdfPageSize,
 } from "@/types/photo-to-pdf/photo-to-pdf.types";
 import { downloadMergedPdf } from "@/utils/merge/pdf-merge";
+import { getPdfPageSize } from "@/utils/common/pdf-page-size";
 
 const JPG_MIME_TYPE = "image/jpeg";
 const JPG_EXTENSIONS = [".jpg", ".jpeg"];
 const PDF_MIME_TYPE = "application/pdf";
-const A4_PAGE_SIZE: [number, number] = [595.28, 841.89];
-const LETTER_PAGE_SIZE: [number, number] = [612, 792];
 
 function getPhotoFileSignature(file: File) {
   return `${file.name}:${file.size}:${file.lastModified}`;
-}
-
-function getPdfPageSize(
-  pageSize: PhotoToPdfPageSize,
-  width: number,
-  height: number,
-): [number, number] {
-  if (pageSize === "a4") {
-    return A4_PAGE_SIZE;
-  }
-
-  if (pageSize === "letter") {
-    return LETTER_PAGE_SIZE;
-  }
-
-  return [width, height];
 }
 
 function getPhotoToPdfBaseName(fileName: string) {

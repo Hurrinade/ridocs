@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import { PDFDocument } from "pdf-lib";
+import { addNormalizedPdfPage } from "@/utils/common/pdf-page-size";
+import type { PdfPageSize } from "@/types/common/common.type";
 import type { PdfMergeItem } from "@/types/merge/merge.types";
 
 const PDF_MIME_TYPE = "application/pdf";
@@ -69,12 +71,23 @@ export function movePdfMergeItems(
   return normalizePdfMergeItems(nextItems);
 }
 
-export async function mergePdfFiles(items: PdfMergeItem[]) {
+export async function mergePdfFiles(
+  items: PdfMergeItem[],
+  pageSize: PdfPageSize = "original",
+) {
   const mergedDocument = await PDFDocument.create();
 
   for (const item of items) {
     const sourceBytes = await item.file.arrayBuffer();
     const sourceDocument = await PDFDocument.load(sourceBytes);
+
+    if (pageSize !== "original") {
+      for (const sourcePage of sourceDocument.getPages()) {
+        await addNormalizedPdfPage(mergedDocument, sourcePage, pageSize);
+      }
+      continue;
+    }
+
     const copiedPages = await mergedDocument.copyPages(
       sourceDocument,
       sourceDocument.getPageIndices(),

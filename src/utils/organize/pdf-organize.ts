@@ -1,13 +1,15 @@
 import dayjs from "dayjs";
 import { degrees, PDFDocument } from "pdf-lib";
 import { downloadMergedPdf, isPdfFile } from "@/utils/merge/pdf-merge";
+import {
+  addNormalizedPdfPage,
+  normalizePdfPageRotation,
+} from "@/utils/common/pdf-page-size";
+import type { PdfPageSize } from "@/types/common/common.type";
 import type {
   PdfOrganizeDocument,
   PdfOrganizePageItem,
-  PdfOrganizePageRotation,
 } from "@/types/organize/organize.types";
-
-const PAGE_ROTATIONS: PdfOrganizePageRotation[] = [0, 90, 180, 270];
 
 function buildPdfOrganizePageItems(pageCount: number): PdfOrganizePageItem[] {
   return Array.from({ length: pageCount }, (_, index) => ({
@@ -16,14 +18,6 @@ function buildPdfOrganizePageItems(pageCount: number): PdfOrganizePageItem[] {
     rotation: 0,
     sourcePageIndex: index,
   }));
-}
-
-function normalizePageRotation(rotation: number): PdfOrganizePageRotation {
-  const normalizedRotation = ((rotation % 360) + 360) % 360;
-
-  return PAGE_ROTATIONS.includes(normalizedRotation as PdfOrganizePageRotation)
-    ? (normalizedRotation as PdfOrganizePageRotation)
-    : 0;
 }
 
 export function normalizePdfOrganizePages(items: PdfOrganizePageItem[]) {
@@ -94,7 +88,7 @@ export function rotatePdfOrganizePage(
     item.id === itemId
       ? {
           ...item,
-          rotation: normalizePageRotation(item.rotation + 90),
+          rotation: normalizePdfPageRotation(item.rotation + 90),
         }
       : item,
   );
@@ -103,19 +97,30 @@ export function rotatePdfOrganizePage(
 export async function saveOrganizedPdf(
   document: PdfOrganizeDocument,
   pages: PdfOrganizePageItem[],
+  pageSize: PdfPageSize = "original",
 ) {
   const sourceBytes = await document.file.arrayBuffer();
   const sourceDocument = await PDFDocument.load(sourceBytes);
   const nextDocument = await PDFDocument.create();
 
   for (const pageItem of pages) {
+    if (pageSize !== "original") {
+      await addNormalizedPdfPage(
+        nextDocument,
+        sourceDocument.getPage(pageItem.sourcePageIndex),
+        pageSize,
+        pageItem.rotation,
+      );
+      continue;
+    }
+
     const [copiedPage] = await nextDocument.copyPages(sourceDocument, [
       pageItem.sourcePageIndex,
     ]);
 
     copiedPage.setRotation(
       degrees(
-        normalizePageRotation(
+        normalizePdfPageRotation(
           copiedPage.getRotation().angle + pageItem.rotation,
         ),
       ),

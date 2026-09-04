@@ -1,32 +1,16 @@
 import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
-import { ChevronDown, RefreshCw, Save, Trash2 } from "lucide-react";
+import { RefreshCw, Save, Trash2 } from "lucide-react";
 import Dropzone from "@/components/common/Dropzone";
 import PhotoToPdfQueueCard, {
   PhotoToPdfQueueCardOverlay,
 } from "@/components/photo-to-pdf/PhotoToPdfQueueCard";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { usePhotoToPdfWorkspace } from "@/hooks/photo-to-pdf/use-photo-to-pdf-workspace";
-import type { PhotoToPdfPageSize } from "@/types/photo-to-pdf/photo-to-pdf.types";
+import PdfPageSizeSelect from "@/components/common/PdfPageSizeSelect";
 import WorkspaceStat from "@/components/common/WorkspaceStat";
-
-const pageSizeOptions: {
-  value: PhotoToPdfPageSize;
-  label: string;
-}[] = [
-  { value: "original", label: "Original" },
-  { value: "a4", label: "A4" },
-  { value: "letter", label: "Letter" },
-];
 
 export default function PhotoToPdfCanvas() {
   const {
@@ -50,9 +34,6 @@ export default function PhotoToPdfCanvas() {
   const [isDragActive, setIsDragActive] = useState(false);
 
   const activeItem = items.find((item) => item.id === activeDragId) ?? null;
-  const selectedPageSizeLabel =
-    pageSizeOptions.find((option) => option.value === pageSize)?.label ??
-    "Original";
 
   function openFilePicker() {
     inputRef.current?.click();
@@ -146,43 +127,16 @@ export default function PhotoToPdfCanvas() {
                         <p className="text-[0.68rem] uppercase tracking-[0.22em] text-muted-foreground">
                           Page size
                         </p>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              className="mt-3 w-full justify-between rounded-[1rem] border-border/70 bg-card text-foreground hover:bg-muted/70 aria-expanded:border-primary/40 aria-expanded:bg-accent/70"
-                              disabled={
-                                status === "loading-files" ||
-                                status === "exporting"
-                              }
-                              type="button"
-                              variant="outline"
-                            >
-                              <span>{selectedPageSizeLabel}</span>
-                              <ChevronDown className="size-4 text-muted-foreground" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent
-                            align="start"
-                            className="rounded-[1rem] border border-border/70 bg-popover/98 p-1.5 shadow-[0_18px_32px_rgb(36_27_21_/_0.12)]"
-                          >
-                            <DropdownMenuRadioGroup
-                              onValueChange={(value) =>
-                                void updatePageSize(value as PhotoToPdfPageSize)
-                              }
-                              value={pageSize}
-                            >
-                              {pageSizeOptions.map((option) => (
-                                <DropdownMenuRadioItem
-                                  className="rounded-[0.8rem] px-3 py-2 text-sm text-foreground data-[state=checked]:bg-primary/10 data-[state=checked]:text-primary"
-                                  key={option.value}
-                                  value={option.value}
-                                >
-                                  {option.label}
-                                </DropdownMenuRadioItem>
-                              ))}
-                            </DropdownMenuRadioGroup>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+                        <PdfPageSizeSelect
+                          className="mt-3"
+                          disabled={
+                            status === "loading-files" || status === "exporting"
+                          }
+                          onChange={(nextPageSize) => {
+                            void updatePageSize(nextPageSize);
+                          }}
+                          value={pageSize}
+                        />
                       </div>
 
                       <WorkspaceStat label="Photos" value={items.length} />

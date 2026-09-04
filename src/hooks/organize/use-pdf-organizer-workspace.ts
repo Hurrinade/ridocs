@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useReorderableDrag } from "@/hooks/use-reorderable-drag";
+import type { PdfPageSize } from "@/types/common/common.type";
 import type {
   OrganizeStatus,
   PdfOrganizeDocument,
@@ -25,6 +26,7 @@ export function usePdfOrganizerWorkspace() {
   const [pages, setPages] = useState<PdfOrganizePageItem[]>([]);
   const [status, setStatus] = useState<OrganizeStatus>("idle");
   const [message, setMessage] = useState<string | null>(null);
+  const [pageSize, setPageSize] = useState<PdfPageSize>("original");
 
   const {
     activeDragId,
@@ -107,7 +109,7 @@ export function usePdfOrganizerWorkspace() {
     setMessage(null);
 
     try {
-      const savedBytes = await saveOrganizedPdf(document, pages);
+      const savedBytes = await saveOrganizedPdf(document, pages, pageSize);
       downloadOrganizedPdf(savedBytes, document.fileName);
       setStatus("ready");
     } catch (error) {
@@ -131,6 +133,7 @@ export function usePdfOrganizerWorkspace() {
     handleDragStart,
     loadFile,
     message,
+    pageSize,
     pages,
     removePage,
     reorderPages: reorderItems,
@@ -138,5 +141,6 @@ export function usePdfOrganizerWorkspace() {
     saveDocument,
     startDrag,
     status,
+    updatePageSize: setPageSize,
   };
 }

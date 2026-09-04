@@ -10,6 +10,7 @@ import { useModal } from "@/hooks/modals/use-modal";
 import type { PdfMergeItem } from "@/types/merge/merge.types";
 import { usePdfMergeWorkspace } from "@/hooks/merge/use-pdf-merge-workspace";
 import Dropzone from "@/components/common/Dropzone";
+import PdfPageSizeSelect from "@/components/common/PdfPageSizeSelect";
 
 export default function MergeCanvas() {
   const {
@@ -21,8 +22,10 @@ export default function MergeCanvas() {
     handleDragEnd,
     handleDragStart,
     items,
+    pageSize,
     removeItem,
     status,
+    updatePageSize,
   } = usePdfMergeWorkspace();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
@@ -128,6 +131,13 @@ export default function MergeCanvas() {
         {items.length > 0 ? (
           <>
             <div className="absolute top-4 right-4 z-20 flex items-center gap-2 sm:top-6 sm:right-6">
+              <PdfPageSizeSelect
+                className="w-36 rounded-full bg-card shadow-[0_16px_32px_rgb(33_24_18/0.12)]"
+                disabled={status === "loading-files" || status === "merging"}
+                onChange={updatePageSize}
+                value={pageSize}
+              />
+
               <Button
                 className="rounded-full shadow-[0_16px_32px_rgb(33_24_18/0.12)]"
                 disabled={status === "loading-files" || status === "merging"}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useReorderableDrag } from "@/hooks/use-reorderable-drag";
+import type { PdfPageSize } from "@/types/common/common.type";
 import type { MergeStatus, PdfMergeItem } from "@/types/merge/merge.types";
 import {
   createPdfMergeItem,
@@ -15,6 +16,7 @@ import {
 export function usePdfMergeWorkspace() {
   const [items, setItems] = useState<PdfMergeItem[]>([]);
   const [status, setStatus] = useState<MergeStatus>("idle");
+  const [pageSize, setPageSize] = useState<PdfPageSize>("original");
 
   const {
     activeDragId,
@@ -126,7 +128,7 @@ export function usePdfMergeWorkspace() {
     setStatus("merging");
 
     try {
-      const mergedBytes = await mergePdfFiles(items);
+      const mergedBytes = await mergePdfFiles(items, pageSize);
       downloadMergedPdf(mergedBytes);
       setStatus("ready");
     } catch (error) {
@@ -146,9 +148,11 @@ export function usePdfMergeWorkspace() {
     handleDragEnd,
     handleDragStart,
     items,
+    pageSize,
     removeItem,
     reorderItems,
     startDrag,
     status,
+    updatePageSize: setPageSize,
   };
 }

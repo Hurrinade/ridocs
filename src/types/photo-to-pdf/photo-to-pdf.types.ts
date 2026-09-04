@@ -1,4 +1,6 @@
-export type PhotoToPdfPageSize = "original" | "a4" | "letter";
+import type { PdfPageSize } from "@/types/common/common.type";
+
+export type PhotoToPdfPageSize = PdfPageSize;
 
 export type PhotoToPdfStatus =
   | "idle"
