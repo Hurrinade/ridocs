@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import RouteMeta from "@/components/common/RouteMeta";
 import { legalConfig } from "@/config/legal";
 import { pdfToolsNavItems } from "@/config/navigation/pdf-tools-nav";
 import ToolCardItem from "@/components/root/ToolCardItem";
@@ -6,6 +7,7 @@ import ToolCardItem from "@/components/root/ToolCardItem";
 export default function Root() {
   return (
     <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      <RouteMeta path="/" />
       <header className="space-y-3">
         <h1 className="font-heading text-4xl leading-none tracking-[-0.04em] text-foreground sm:text-5xl">
           RiDocs

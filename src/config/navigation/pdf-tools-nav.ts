@@ -35,3 +35,13 @@ export const pdfToolsNavItems: PdfToolNavItem[] = [
     disabled: true,
   },
 ];
+
+export function getPdfToolNavItem(key: string) {
+  const item = pdfToolsNavItems.find((navItem) => navItem.key === key);
+
+  if (!item) {
+    throw new Error(`Unknown PDF tool: ${key}`);
+  }
+
+  return item;
+}
