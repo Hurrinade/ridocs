@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { legalConfig } from "@/config/legal";
 import { pdfToolsNavItems } from "@/config/navigation/pdf-tools-nav";
 import ToolCardItem from "@/components/root/ToolCardItem";
 
@@ -40,6 +41,19 @@ export default function Root() {
           );
         })}
       </section>
+
+      <footer className="mt-auto border-t border-border/70 pt-6 text-sm text-muted-foreground">
+        <p>
+          {legalConfig.appName} &mdash; built by{" "}
+          <a
+            className="transition-colors hover:text-foreground"
+            href={legalConfig.companyWebsite}
+          >
+            {legalConfig.companyName}
+          </a>
+          , Zagreb. Files stay in your browser and are never sent to a server.
+        </p>
+      </footer>
     </div>
   );
 }
