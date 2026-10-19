@@ -16,7 +16,7 @@ bun run lint:fix     # Run lint checks and auto-fix
 bun run format       # Format project files
 bun run format:check # Check formatting without writing files
 bun run typecheck    # Check for ts errors
-bun run check        # Lint, typecheck and prettier check without mutating files
+bun run check        # Lint, typecheck and format check without mutating files
 ```
 
 ## Current Routes
@@ -33,7 +33,7 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 | Category         | Technology           | Version |
 | ---------------- | -------------------- | ------- |
 | Framework        | React                | 19      |
-| Language         | TypeScript           | ~6.0    |
+| Language         | TypeScript           | 7       |
 | Bundler          | Vite                 | 8       |
 | Routing          | React Router         | 7       |
 | Styling          | Tailwind CSS         | 4       |
@@ -45,8 +45,8 @@ bun run check        # Lint, typecheck and prettier check without mutating files
 | PDF Merge        | pdf-lib              | 1.17    |
 | PDF Preview      | react-pdf            | 10      |
 | Drag and Drop    | @dnd-kit/react       | 0.4     |
-| Linting          | ESLint               | 9       |
-| Formatting       | Prettier             | 3.8     |
+| Linting          | Oxlint               | 1       |
+| Formatting       | Oxfmt                | 0.73    |
 
 ## Component architecture pattern
 

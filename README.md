@@ -47,7 +47,7 @@ bun run format:check
 bun run check
 ```
 
-`bun run check` is non-mutating. It runs linting, typechecking, and Prettier in
+`bun run check` is non-mutating. It runs linting, typechecking, and Oxfmt in
 check mode.
 
 ## Current Routes

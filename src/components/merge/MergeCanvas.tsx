@@ -173,7 +173,7 @@ export default function MergeCanvas() {
                 className="absolute text-xl h-25 w-25 rounded-full right-4 bottom-4 z-20 bg-foreground sm:right-6 sm:bottom-6 text-background"
                 onClick={(event) => {
                   event.stopPropagation();
-                  exportMergedDocument();
+                  void exportMergedDocument();
                 }}
                 type="button"
                 variant="default"
